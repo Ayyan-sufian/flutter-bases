@@ -27,6 +27,16 @@ class _CalculatorPgState extends State<CalculatorPg> {
   ),
 
   body:Container(
+    decoration: BoxDecoration(
+      gradient: LinearGradient(colors: [
+        Colors.blue.shade200,
+        Colors.blueGrey.shade200,
+      ],
+        begin: Alignment.topLeft,
+        end: Alignment.bottomRight,
+      ),
+
+    ),
   child: Center(
     child: SingleChildScrollView(
       child: Column(

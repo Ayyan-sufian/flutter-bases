@@ -73,7 +73,16 @@ class _MyHomePageState extends State<MyHomePage> {
           centerTitle: true,
         ),
       body:Container(
-        color: bgColor,
+        decoration: BoxDecoration(
+          gradient: LinearGradient(colors: [
+            Colors.blue.shade200,
+            Colors.blueGrey.shade200,
+          ],
+            begin: Alignment.topLeft,
+            end: Alignment.bottomRight,
+          ),
+
+        ),
         child: Center(
           child: SingleChildScrollView(
             child: Column(
@@ -82,7 +91,7 @@ class _MyHomePageState extends State<MyHomePage> {
               children: [
                 Padding(
                   padding: const EdgeInsets.only(bottom: 28.0),
-                  child: Text('Body Mass Index. ',style: TextStyle(fontWeight: FontWeight.w500,fontSize: 29),),
+                  child: Text('Body Mass Index. ',style: TextStyle(fontWeight: FontWeight.w500,fontSize: 29,),),
                 ),
                 Padding(
                   padding: const EdgeInsets.only(bottom: 28.0),
