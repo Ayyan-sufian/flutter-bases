@@ -2,13 +2,18 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bases/calculator.dart';
 import 'package:flutter_bases/main.dart';
+import 'package:flutter_bases/splash_screen.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class IntroPage extends StatefulWidget{
+  const IntroPage({super.key});
+
   @override
   State<IntroPage> createState() => _IntroPageState();
 }
 
 class _IntroPageState extends State<IntroPage> {
+  bool _obsecureText = true;
   var nameController = TextEditingController();
 
   var emailText = TextEditingController();
@@ -82,9 +87,9 @@ class _IntroPageState extends State<IntroPage> {
                          ),
                          SizedBox(height: 16,),
                          TextField(
-                           keyboardType: TextInputType.number,
+                           keyboardType: TextInputType.text,
                            controller: passText,
-                           obscureText: true,
+                           obscureText: _obsecureText,
                            decoration: InputDecoration(
                              hintText: 'Enter Password',
                              focusedBorder: OutlineInputBorder(
@@ -107,18 +112,26 @@ class _IntroPageState extends State<IntroPage> {
                              ),
 
                              suffixIcon: IconButton(
-                               icon: Icon(Icons.remove_red_eye), onPressed: () {
-
+                               icon: Icon(
+                                   _obsecureText ? Icons.visibility_off : Icons.visibility),
+                               onPressed: () {
+                                 setState(() {
+                                   _obsecureText = !_obsecureText;
+                                 });
                              },
                              ),
                            ),
                          ),
                          SizedBox(height: 16,),
-                         MaterialButton(onPressed: (){
+                         MaterialButton(onPressed: () async {
                            var ue = emailText.text.toString();
                            var up = passText.text.toString();
+
+                           var sharedPref = await SharedPreferences.getInstance();
+                           sharedPref.setBool(SplashScreenState.KEYLOGIN, true);
+
                            if(ue!=""&&up!=""){
-                             setState(() {Navigator.push(context,
+                             setState(() {Navigator.pushReplacement(context,
                                  MaterialPageRoute(builder: (context) => MyHomePage(nameController.text.toString()),));
                              });
                            }else{
@@ -138,7 +151,7 @@ class _IntroPageState extends State<IntroPage> {
                          SizedBox(height: 16,),
 
                          MaterialButton(onPressed: (){
-                           Navigator.push(
+                           Navigator.pushReplacement(
                                context,
                                MaterialPageRoute(
                                  builder: (context) => MyHomePage(nameController.text.toString()),));

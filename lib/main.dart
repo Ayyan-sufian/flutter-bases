@@ -8,6 +8,7 @@ import 'package:flutter_bases/ui_helper/util.dart';
 import 'package:flutter_bases/widgit/rounded_btn.dart';
 import 'package:intl/intl.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 void main() {
   runApp(const MyApp());
 }
@@ -89,6 +90,19 @@ class _MyHomePageState extends State<MyHomePage> {
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: [
+                    ElevatedButton(
+                        onPressed: () async {
+                          var sharedPref = await SharedPreferences.getInstance();
+                          sharedPref.setBool(SplashScreenState.KEYLOGIN, false);
+                          Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => IntroPage(),));
+                        },
+                        child: Icon(Icons.exit_to_app)),
+                    Text('Logout',style: TextStyle(fontSize: 16,fontWeight: FontWeight.w200),)
+                  ],
+                ),
                 Padding(
                   padding: const EdgeInsets.only(bottom: 28.0),
                   child: Text('Body Mass Index. ',style: TextStyle(fontWeight: FontWeight.w500,fontSize: 29,),),
